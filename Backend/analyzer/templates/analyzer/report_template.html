@@ -1,0 +1,33 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>AI Implementation Report</title>
+    <style>
+        body {
+            font-family: sans-serif;
+        }
+        h1 {
+            color: #333;
+        }
+        .recommendation {
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            padding: 15px;
+        }
+        .recommendation h2 {
+            margin-top: 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>AI Implementation Report</h1>
+    {% for rec in recommendations %}
+        <div class="recommendation">
+            <h2>{{ rec.name }}</h2>
+            <p><strong>Description:</strong> {{ rec.description }}</p>
+            <p><strong>Feasibility:</strong> {{ rec.feasibility }}</p>
+        </div>
+    {% endfor %}
+</body>
+</html>
