@@ -34,3 +34,11 @@ This is a Django backend for SynthReport.
    ```
 
 The server will be running at `http://127.0.0.1:8000/`.
+
+## Developing the server
+
+1. To create a new app:
+```
+python manage.py startapp new_app_name
+```
+2. 
