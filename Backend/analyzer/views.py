@@ -1,30 +1,30 @@
-from django.http import JsonResponse
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework import status
+from .serializers import UrlSerializer
 from .scraper import scrape_website
 from .analyzer import analyze_content
-from .report_generator import generate_report
-import json
 
-def analyze_url_view(request):
-    if request.method == 'POST':
-        data = json.loads(request.body)
-        url = data.get('url')
-        if not url:
-            return JsonResponse({'error': 'URL is required'}, status=400)
-        
-        try:
-            content = scrape_website(url)
-            analysis = analyze_content(content)
-            return JsonResponse(analysis)
-        except Exception as e:
-            return JsonResponse({'error': str(e)}, status=500)
-    return JsonResponse({'error': 'Invalid request method'}, status=405)
+from rest_framework.permissions import AllowAny
 
-def generate_report_view(request):
-    if request.method == 'POST':
-        data = json.loads(request.body)
-        try:
-            generate_report(data)
-            return JsonResponse({'message': 'Report generated successfully'})
-        except Exception as e:
-            return JsonResponse({'error': str(e)}, status=500)
-    return JsonResponse({'error': 'Invalid request method'}, status=405)
+from rest_framework.decorators import api_view, permission_classes
+
+@api_view(['GET'])
+@permission_classes([AllowAny])
+def default_view(request):
+    return Response({"message": "API is running"})
+
+
+class AnalyzeUrlView(APIView):
+    permission_classes = [AllowAny]
+    def post(self, request, *args, **kwargs):
+        serializer = UrlSerializer(data=request.data)
+        if serializer.is_valid():
+            url = serializer.validated_data['url']
+            try:
+                content = scrape_website(url)
+                analysis = analyze_content(content)
+                return Response(analysis)
+            except Exception as e:
+                return Response({"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
