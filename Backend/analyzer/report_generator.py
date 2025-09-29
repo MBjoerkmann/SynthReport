@@ -3,6 +3,6 @@ from django.template.loader import render_to_string
 from weasyprint import HTML
 
 def generate_report(data):
-    html_string = render_to_string('analyzer/report_template.html', {'recommendations': data['recommendations']})
+    html_string = render_to_string('analyzer/report_template.html', data)
     html = HTML(string=html_string)
     return html.write_pdf()
