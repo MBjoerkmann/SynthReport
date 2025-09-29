@@ -140,3 +140,11 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 FIRECRAWL_API_KEY = config('FIRECRAWL_API_KEY')
 OPENAI_API_KEY = config('OPENAI_API_KEY')
 GEMINI_API_KEY = config('GEMINI_API_KEY')
+
+# Email settings
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = config('EMAIL_HOST', default='smtp.gmail.com')
+EMAIL_PORT = config('EMAIL_PORT', default=587, cast=int)
+EMAIL_USE_TLS = config('EMAIL_USE_TLS', default=True, cast=bool)
+EMAIL_HOST_USER = config('EMAIL_HOST_USER', default='your-email@gmail.com')
+EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD', default='your-app-password')

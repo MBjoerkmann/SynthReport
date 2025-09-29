@@ -5,7 +5,18 @@ import json
 def analyze_content(content):
     client = genai.Client(api_key=settings.GEMINI_API_KEY)
 
-    prompt = f"""Based on the following website content, identify 3 potential use cases for AI and automation. For each use case, provide a 'name', a 'description' of how it would help the business, and a 'feasibility' rating (Low, Medium, or High). Please respond ONLY with a valid JSON object in the format: {{ "recommendations": [...] }}
+    prompt = f"""Analyze the following website content and generate a report in JSON format. The report should contain:
+    1.  A 'company_description' (a brief, one-paragraph overview of the company).
+    2.  A list of 3 'recommendations' for AI and automation.
+
+    For each recommendation, provide:
+    -   'name': A short, descriptive name for the use case.
+    -   'description': A paragraph explaining how it would help the business.
+    -   'feasibility': A rating of Low, Medium, or High.
+    -   'action_plan': A list of 3-5 concrete steps for implementation.
+    -   'duration': An estimated time for implementation (e.g., '3-6 months').
+
+    Please respond ONLY with a valid JSON object.
 
     Website Content:
     {content}

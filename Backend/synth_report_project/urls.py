@@ -21,6 +21,6 @@ from analyzer.views import default_view
 urlpatterns = [
     path('', default_view),
     path('admin/', admin.site.urls),
-    path('api/', include('analyzer.urls')),
+    path('analyzer/', include('analyzer.urls')),
     path('api-auth/', include('rest_framework.urls'))
 ]
