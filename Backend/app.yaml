@@ -1,0 +1,27 @@
+runtime: python312
+entrypoint: gunicorn -b :$PORT synth_report_project.wsgi
+
+instance_class: F4
+
+automatic_scaling:
+  max_instances: 2
+  min_instances: 0
+  target_cpu_utilization: 0.75
+
+handlers:
+- url: /static
+  static_dir: staticfiles/
+
+env_variables:
+  SECRET_KEY: 'your-secret-key'
+  DEBUG: 'False'
+  ALLOWED_HOSTS: '.appspot.com'
+  FIRECRAWL_API_KEY: 'your-firecrawl-api-key'
+  OPENAI_API_KEY: 'your-openai-api-key'
+  GEMINI_API_KEY: 'your-gemini-api-key'
+  EMAIL_HOST: 'smtp.gmail.com'
+  EMAIL_PORT: '587'
+  EMAIL_USE_TLS: 'True'
+  EMAIL_HOST_USER: 'math6041@gmail.com'
+  EMAIL_HOST_PASSWORD: 'your-app-password'
+  CORS_ALLOW_ALL_ORIGINS: 'False'

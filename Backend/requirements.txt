@@ -8,3 +8,4 @@ weasyprint==66.0
 python-decouple==3.8
 google-genai==1.39.1
 djangorestframework==3.16.1
+gunicorn==22.0.0

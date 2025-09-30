@@ -31,13 +31,18 @@ export default function Home() {
     setAnalysis(null); // Should perhaps still be set
     setReportMessage(null);
 
+    let formattedUrl = url;
+    if (!formattedUrl.startsWith("http://") && !formattedUrl.startsWith("https://")) {
+      formattedUrl = "https://www." + formattedUrl;
+    }
+
     try {
       const response = await fetch("http://127.0.0.1:8000/analyzer/analyze-url/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ url }),
+        body: JSON.stringify({ url: formattedUrl }),
       });
 
       if (!response.ok) {
@@ -118,36 +123,39 @@ export default function Home() {
           </div>
         </form>
         
-        <form onSubmit={handleGenerateReport} className="flex-1">
-          <div className="w-full bg-white/10 max-w-4xl backdrop-blur-sm shadow-md rounded-lg p-8 mt-8 p-8 h-full flex flex-col justify-between bg-gradient-to-r from-orange-600/20 to-pink-600/20">
-            <div>
-              <h2 className="text-2xl font-bold mb-4">Get Report by Email</h2>
-              <div className="flex items-center border-b-2 py-2 mb-4" >
-                <input
-                  className="appearance-none bg-transparent border-none w-full text-white mr-3 py-1 px-2 leading-tight focus:outline-none"
-                  type="email"
-                  placeholder="Enter your email"
-                  aria-label="Report Email"
-                  value={reportEmail}
-                  onChange={(e) => setReportEmail(e.target.value)}
-                  required
-                />
-                <button
-                  className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg]:size-4 [&amp;_svg]:shrink-0 h-10 bg-white text-green-700 hover:bg-gray-100 font-semibold px-6 py-2 text-sm mb-3"
-                  type="submit"
-                  disabled={sendingReport || !analysis}
-                >
-                  {sendingReport ? "Sending..." : "Send Report"}
-                </button>
+        {/* Report Generation Card */}
+        {analysis && (
+          <form onSubmit={handleGenerateReport} className="flex-1">
+            <div className="w-full bg-white/10 max-w-4xl backdrop-blur-sm shadow-md rounded-lg p-8 mt-8 p-8 h-full flex flex-col justify-between bg-gradient-to-r from-orange-600/20 to-pink-600/20">
+              <div>
+                <h2 className="text-2xl font-bold mb-4">Get Report by Email?</h2>
+                <div className="flex items-center border-b-2 py-2 mb-4" >
+                  <input
+                    className="appearance-none bg-transparent border-none w-full text-white mr-3 py-1 px-2 leading-tight focus:outline-none"
+                    type="email"
+                    placeholder="Enter your email"
+                    aria-label="Report Email"
+                    value={reportEmail}
+                    onChange={(e) => setReportEmail(e.target.value)}
+                    required
+                  />
+                  <button
+                    className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg]:size-4 [&amp;_svg]:shrink-0 h-10 bg-white text-green-700 hover:bg-gray-100 font-semibold px-6 py-2 text-sm mb-3"
+                    type="submit"
+                    disabled={sendingReport || !analysis}
+                  >
+                    {sendingReport ? "Sending..." : "Send Report"}
+                  </button>
+                </div>
+                {reportMessage && (
+                  <p className={reportMessage.includes("successfully") ? "text-green-600" : "text-red-500"}>
+                    {reportMessage}
+                  </p>
+                )}
               </div>
-              {reportMessage && (
-                <p className={reportMessage.includes("successfully") ? "text-green-600" : "text-red-500"}>
-                  {reportMessage}
-                </p>
-              )}
             </div>
-          </div>
-        </form>
+          </form>
+        )}
       </div>
 
       {loading && (
