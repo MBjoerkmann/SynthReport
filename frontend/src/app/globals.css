@@ -23,7 +23,7 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: sans-serif, Arial, Helvetica ;
-  background-image: url('/background.png');
+  background-image: url('/backgrounddarker.png');
   background-size: cover; /* Stretches the image to cover the entire area */
   background-position: center; /* Centers the image */
   background-repeat: no-repeat; /* Prevents the image from repeating */
