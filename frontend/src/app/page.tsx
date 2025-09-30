@@ -93,7 +93,7 @@ export default function Home() {
       <div className="flex flex-col md:flex-row gap-8 w-full max-w-4xl mb-8">
         {/* URL Input Form */}
         <form onSubmit={handleSubmit} className="flex-1">
-          <div className="bg-blue-700 shadow-md rounded-lg p-8 h-full flex flex-col justify-between">
+          <div className="w-full bg-white/10 max-w-4xl backdrop-blur-sm shadow-md rounded-lg p-8 mt-8">
             <div>
               <h2 className="text-2xl font-bold mb-4">Analyze Company</h2>
               <div className="flex items-center border-b-2 border-blue-500 py-2 mb-4">
@@ -120,10 +120,10 @@ export default function Home() {
 
         {/* Report Generation Card */}
         <form onSubmit={handleGenerateReport} className="flex-1">
-          <div className="bg-blue-700 bg-opacity-75 shadow-md rounded-lg p-8 h-full flex flex-col justify-between">
+          <div className="w-full bg-white/10 max-w-4xl backdrop-blur-sm shadow-md rounded-lg p-8 mt-8 p-8 h-full flex flex-col justify-between bg-gradient-to-r from-orange-600/20 to-pink-600/20">
             <div>
               <h2 className="text-2xl font-bold mb-4">Get Report by Email</h2>
-              <div className="flex items-center border-b-2 border-blue-500 py-2 mb-4">
+              <div className="flex items-center border-b-2 border-blue-500 py-2 mb-4" >
                 <input
                   className="appearance-none bg-transparent border-none w-full text-white mr-3 py-1 px-2 leading-tight focus:outline-none"
                   type="email"
@@ -158,7 +158,8 @@ export default function Home() {
       )}
 
       {analysis && (
-        <div className="w-full max-w-4xl bg-blue-700 bg-opacity-50 shadow-md rounded-lg p-8 mt-8">
+        <div className="w-full bg-white/10 max-w-4xl backdrop-blur-sm shadow-md rounded-lg p-8 mt-8">
+          
           <h2 className="text-2xl font-bold mb-4">Analysis Results</h2>
           <div className="mb-6">
             <h3 className="text-xl font-semibold ">Company Description</h3>
@@ -166,9 +167,9 @@ export default function Home() {
           </div>
           <div>
             <h3 className="text-xl font-semibold mb-4">Recommendations</h3>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
               {analysis.recommendations.map((rec, index) => (
-                <div key={index} className="border-l-4 border-blue-500 pl-4">
+                <div key={index} className="bg-white/5 rounded-lg -5 backdrop-blur-sm border border-white/20 flex flex-col h-full">
                   <h4 className="text-lg font-bold">{rec.name}</h4>
                   <p className="text-white mb-2">{rec.description}</p>
                   <p><strong>Feasibility:</strong> {rec.feasibility}</p>
