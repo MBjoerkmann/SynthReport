@@ -88,15 +88,15 @@ export default function Home() {
 
   return (
     <main className="flex min-h-screen flex-col items-center p-24 text-white">
-      <h1 className="text-4xl font-bold mb-8">Company Page Analyzer</h1>
+      <h1 className="text-4xl font-bold mb-8">AI recommendation tool</h1>
 
-      <div className="flex flex-col md:flex-row gap-8 w-full max-w-4xl mb-8">
+      <div className="flex flex-col md:flex-row gap-8 w-full mb-4">
         {/* URL Input Form */}
         <form onSubmit={handleSubmit} className="flex-1">
           <div className="w-full bg-white/10 max-w-4xl backdrop-blur-sm shadow-md rounded-lg p-8 mt-8">
             <div>
               <h2 className="text-2xl font-bold mb-4">Analyze Company</h2>
-              <div className="flex items-center border-b-2 border-blue-500 py-2 mb-4">
+              <div className="flex items-center border-b-2 py-2 mb-4">
                 <input
                   className="appearance-none bg-transparent border-none w-full text-white mr-3 py-1 px-2 leading-tight focus:outline-none"
                   type="text"
@@ -105,8 +105,8 @@ export default function Home() {
                   value={url}
                   onChange={(e) => setUrl(e.target.value)}
                 />
-                <button
-                  className="flex-shrink-0 bg-blue-500 hover:bg-blue-700 border-blue-500 hover:border-blue-700 text-sm border-4 text-white py-1 px-2 rounded"
+                <button 
+                  className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg]:size-4 [&amp;_svg]:shrink-0 h-10 bg-white text-green-700 hover:bg-gray-100 font-semibold px-6 py-2 text-sm w-full mb-3"
                   type="submit"
                   disabled={loading}
                 >
@@ -123,7 +123,7 @@ export default function Home() {
           <div className="w-full bg-white/10 max-w-4xl backdrop-blur-sm shadow-md rounded-lg p-8 mt-8 p-8 h-full flex flex-col justify-between bg-gradient-to-r from-orange-600/20 to-pink-600/20">
             <div>
               <h2 className="text-2xl font-bold mb-4">Get Report by Email</h2>
-              <div className="flex items-center border-b-2 border-blue-500 py-2 mb-4" >
+              <div className="flex items-center border-b-2 py-2 mb-4" >
                 <input
                   className="appearance-none bg-transparent border-none w-full text-white mr-3 py-1 px-2 leading-tight focus:outline-none"
                   type="email"
@@ -134,7 +134,7 @@ export default function Home() {
                   required
                 />
                 <button
-                  className="flex-shrink-0 bg-blue-500 hover:bg-blue-700 border-blue-500 hover:border-blue-700 text-sm border-4 text-white py-1 px-2 rounded"
+                  className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg]:size-4 [&amp;_svg]:shrink-0 h-10 bg-white text-green-700 hover:bg-gray-100 font-semibold px-6 py-2 text-sm w-full mb-3"
                   type="submit"
                   disabled={sendingReport || !analysis}
                 >
