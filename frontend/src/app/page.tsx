@@ -2,15 +2,22 @@
 
 import { useState } from "react";
 
+type Step = {
+  name: string;
+  duration: string;
+};
+
 type Recommendation = {
   name: string;
   description: string;
   feasibility: string;
   action_plan: string[];
   duration: string;
+  steps: Step[];
 };
 
 type Analysis = {
+  company_name: string;
   company_description: string;
   recommendations: Recommendation[];
 };
@@ -92,7 +99,7 @@ export default function Home() {
   };
 
   return (
-    <main className="flex min-h-screen flex-col items-center p-24 text-white">
+    <main className="flex min-h-screen flex-col items-center justify-center p-24 text-white">
       <h1 className="text-4xl font-bold mb-8">AI recommendation tool</h1>
 
       <div className="container mx-auto px-6 py-8">
@@ -167,7 +174,7 @@ export default function Home() {
       {analysis && (
         <div className="w-full bg-blue/10 backdrop-blur-sm shadow-md rounded-lg mb-8 p-8">
           
-          <h2 className="text-2xl font-bold mb-4">Analysis Results</h2>
+          <h2 className="text-2xl font-bold mb-4">Analysis Results for {analysis.company_name} </h2>
           <div className="mb-6">
             <h3 className="text-xl font-semibold ">Company Description</h3>
             <p className="text-white">{analysis.company_description}</p>
@@ -176,19 +183,29 @@ export default function Home() {
             <h3 className="text-xl font-semibold mb-4">Recommendations</h3>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8 p-4">
               {analysis.recommendations.map((rec, index) => (
-                <div key={index} className="bg-white/5 rounded-lg -5 backdrop-blur-sm border border-white/20 flex flex-col h-full mb-3 p-3">
+                <div key={index} className={`rounded-lg -5 backdrop-blur-sm border border-white/20 flex flex-col h-full mb-3 p-3 ${index === 0 ? 'bg-green-500/20' : index === 1 ? 'bg-yellow-500/20' : 'bg-red-500/20'}`}>
                   <h4 className="text-lg font-bold">{rec.name}</h4>
-                  <p className="text-white mb-2">{rec.description}</p>
+                  <p className="text-gray-200 mb-2">{rec.description}</p>
                   <p><strong>Feasibility:</strong> {rec.feasibility}</p>
                   <p><strong>Duration:</strong> {rec.duration}</p>
                   <div className="mt-2">
                     <h5 className="font-semibold">Action Plan:</h5>
-                    <ul className="list-disc list-inside pl-4">
+                    <ul className="list-disc list-inside pl-4 text-gray-200">
                       {rec.action_plan.map((step, i) => (
                         <li key={i}>{step}</li>
                       ))}
                     </ul>
                   </div>
+                  {rec.steps && rec.steps.length > 0 && (
+                    <div className="mt-2">
+                      <h5 className="font-semibold">Steps:</h5>
+                      <ul className="list-disc list-inside pl-4 text-gray-200">
+                        {rec.steps.map((step, i) => (
+                          <li key={i}>{step.name} ({step.duration})</li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
                 </div>
               ))}
             </div>
