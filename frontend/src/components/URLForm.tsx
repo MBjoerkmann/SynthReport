@@ -13,21 +13,23 @@ type URLFormProps = {
 
 export default function URLForm({ setUrl, handleSubmit, loading, error, url }: URLFormProps) {
   return (
-    <form onSubmit={handleSubmit} className="flex-1">
-      <div className="url-form-container">
-        <div>
+    <form onSubmit={handleSubmit} className="flex-1 space-y-4">
+        <div className="">
           <h2 className="text-2xl font-bold mb-4">Analyze Company</h2>
-          <div className="flex items-center border-b-2 py-2 mb-4">
+          <p> Simply put in the url of your website and get recommendations for AI implementation!</p>
+          <div className="">
+            <div className="inputContainer">
             <input
-              className="appearance-none bg-transparent focus-visible border-none w-full text-white mr-3 py-1 px-2 leading-tight focus:outline-none"
+              className="input"
               type="text"
               placeholder="Enter company website URL"
               aria-label="Company URL"
               value={url}
               onChange={(e) => setUrl(e.target.value)}
             />
+            </div>
             <button
-              className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg]:size-4 [&amp;_svg]:shrink-0 h-10 bg-white text-green-700 hover:bg-gray-100 font-semibold px-6 py-2 text-sm mb-3"
+              className="analyze-button"
               type="submit"
               disabled={loading}
             >
@@ -36,7 +38,6 @@ export default function URLForm({ setUrl, handleSubmit, loading, error, url }: U
           </div>
           {error && <p className="text-red-500">{error}</p>}
         </div>
-      </div>
     </form>
   );
 }

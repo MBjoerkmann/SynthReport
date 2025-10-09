@@ -43,23 +43,23 @@ export default function AnalysisDisplay({ analysis }: AnalysisDisplayProps) {
           {analysis.recommendations.map((rec, index) => (
             <div key={index} className={`recommendation-card recommendation-${index}`}>
               <h4 className="text-lg font-bold">{rec.name}</h4>
-              <p className="text-gray-200 mb-2">{rec.description}</p>
+              <p>{rec.description}</p>
               <p><strong>Feasibility:</strong> {rec.feasibility}</p>
               <p><strong>Duration:</strong> {rec.duration}</p>
               <div className="action-plan">
                 <h5 className="font-semibold mb-2">Action Plan:</h5>
-                <ul className="list-disc list-inside pl-4">
+                <ol className="list-disc list-inside pl-4">
                   {rec.action_plan.map((step, i) => (
                     <li key={i} className="pb-1 mb-1 border-b border-white/10">{step}</li>
                   ))}
-                </ul>
+                </ol>
               </div>
               {rec.steps && rec.steps.length > 0 && (
                 <div className="steps">
                   <h5 className="font-semibold mb-2">Steps:</h5>
                   <ul className="list-disc list-inside pl-4">
                     {rec.steps.map((step, i) => (
-                      <li key={i} className="pb-1 mb-1 border-b border-white/10">{step.name} ({step.duration})</li>
+                      <li key={i} className="">{step.name} ({step.duration})</li>
                     ))}
                   </ul>
                 </div>

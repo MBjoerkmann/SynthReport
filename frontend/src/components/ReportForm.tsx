@@ -55,10 +55,10 @@ export default function ReportForm({ analysis }: ReportFormProps) {
     <form onSubmit={handleGenerateReport} className="flex-1">
       <div className="report-form-container">
         <div>
-          <h2 className="text-2xl font-bold mb-4">Send report to my email</h2>
-          <div className="flex items-center border-b-2 py-2 mb-4">
+          <h1>Send report to my email</h1>
+          <div>
             <input
-              className="appearance-none bg-transparent border-none w-full text-white mr-3 py-1 px-2 leading-tight focus:outline-none"
+              className="input"
               type="email"
               placeholder="Enter your email"
               aria-label="Report Email"
@@ -67,7 +67,7 @@ export default function ReportForm({ analysis }: ReportFormProps) {
               required
             />
             <button
-              className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&amp;_svg]:pointer-events-none [&amp;_svg]:size-4 [&amp;_svg]:shrink-0 h-10 bg-white text-green-700 hover:bg-gray-100 font-semibold px-6 py-2 text-sm mb-3"
+              className="send-report-button"
               type="submit"
               disabled={sendingReport || !analysis}
             >
@@ -75,7 +75,7 @@ export default function ReportForm({ analysis }: ReportFormProps) {
             </button>
           </div>
           {reportMessage && (
-            <p className={reportMessage.includes("successfully") ? "text-green-600" : "text-red-500"}>
+            <p className={reportMessage.includes("successfully") ? "text-white-600" : "text-red-500"}>
               {reportMessage}
             </p>
           )}

@@ -82,7 +82,7 @@ export default function Home() {
     <main className="main-container">
       <h1 className="text-5xl font-bold mb-8">AI recommendation tool</h1>
 
-      <div className="container mx-auto items-center px-6 py-8">
+      <div className="url-form-container">
         <URLForm
           url={url}
           setUrl={setUrl}
