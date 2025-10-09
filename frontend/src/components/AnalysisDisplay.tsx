@@ -32,36 +32,36 @@ export default function AnalysisDisplay({ analysis }: AnalysisDisplayProps) {
 
   return (
     <div className="analysis-display">
-      <h2 className="text-2xl font-bold mb-4">Analysis Results for {analysis.company_name}</h2>
+      <h2>Analysis Results for {analysis.company_name}</h2>
       <div className="pb-6 mb-6 border-b">
         <h3 className="text-xl font-semibold">Company Description</h3>
         <p className="text-white">{analysis.company_description}</p>
       </div>
       <div>
-        <h3 className="text-xl font-semibold mb-4">Recommendations</h3>
+        <h3>Recommendations</h3>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8 p-4">
           {analysis.recommendations.map((rec, index) => (
             <div key={index} className={`recommendation-card recommendation-${index}`}>
-              <h4 className="text-lg font-bold">{rec.name}</h4>
+              <h4>{rec.name}</h4>
               <p>{rec.description}</p>
-              <p><strong>Feasibility:</strong> {rec.feasibility}</p>
-              <p><strong>Duration:</strong> {rec.duration}</p>
+              <p><strong className="feasibility">Feasibility:</strong> {rec.feasibility}</p>
+              <p><strong className="duration">Duration:</strong> {rec.duration}</p>
               <div className="action-plan">
                 <h5 className="font-semibold mb-2">Action Plan:</h5>
-                <ol className="list-disc list-inside pl-4">
+                <ol>
                   {rec.action_plan.map((step, i) => (
-                    <li key={i} className="pb-1 mb-1 border-b border-white/10">{step}</li>
+                    <li key={i}>{step}</li>
                   ))}
                 </ol>
               </div>
               {rec.steps && rec.steps.length > 0 && (
                 <div className="steps">
-                  <h5 className="font-semibold mb-2">Steps:</h5>
-                  <ul className="list-disc list-inside pl-4">
+                  <h5>Steps:</h5>
+                  <ol>
                     {rec.steps.map((step, i) => (
-                      <li key={i} className="">{step.name} ({step.duration})</li>
+                      <li key={i}>{step.name} ({step.duration})</li>
                     ))}
-                  </ul>
+                  </ol>
                 </div>
               )}
             </div>

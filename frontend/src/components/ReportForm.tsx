@@ -42,7 +42,7 @@ export default function ReportForm({ analysis }: ReportFormProps) {
         throw new Error("Failed to send report. Please try again.");
       }
 
-      setReportMessage("Report successfully sent to your email!");
+      setReportMessage("Report successfully sent to your email");
       setReportEmail(""); // Clear email after sending
     } catch (err) {
       setReportMessage(err instanceof Error ? err.message : "An unknown error occurred while sending the report.");
