@@ -24,8 +24,93 @@ body {
   color: var(--foreground);
   font-family: sans-serif, Arial, Helvetica ;
   background-image: url('/backgrounddarker.png');
-  background-size: cover; /* Stretches the image to cover the entire area */
-  background-position: center; /* Centers the image */
-  background-repeat: no-repeat; /* Prevents the image from repeating */
-  background-attachment: fixed; /* Makes the background stay in place on scroll */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+.main-container {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 6rem;
+  color: white;
+}
+
+.url-form-container {
+  width: 100%;
+  background-color: rgba(255, 255, 255, 0.1);
+  max-width: 42rem;
+  backdrop-filter: blur(0.5rem);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 0.5rem;
+  padding: 2rem;
+  margin-top: 2rem;
+  justify-content: center;
+}
+
+.report-form-container {
+  width: 100%;
+  background-color: rgba(255, 255, 255, 0.1);
+  max-width: 42rem;
+  backdrop-filter: blur(0.5rem);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 0.5rem;
+  padding: 2rem;
+  margin-top: 2rem;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background-image: linear-gradient(to right, rgba(255, 165, 0, 0.2), rgba(255, 105, 180, 0.2));
+}
+
+.loading-spinner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 2rem;
+}
+
+.analysis-display {
+  width: 100%;
+  background-color: rgba(0, 0, 255, 0.1);
+  backdrop-filter: blur(0.5rem);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 0.5rem;
+  margin-bottom: 2rem;
+  padding: 2rem;
+}
+
+.recommendation-card {
+  border-radius: 0.5rem;
+  backdrop-filter: blur(100%);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  margin-bottom: 0.75rem;
+  padding: 0.75rem;
+}
+
+.recommendation-0 {
+  background-color: rgba(74, 222, 128, 0.2);
+}
+
+.recommendation-1 {
+  background-color: rgba(251, 191, 36, 0.2);
+}
+
+.recommendation-2 {
+  background-color: rgba(239, 68, 68, 0.2);
+}
+
+.action-plan, .steps {
+  margin-top: 1rem;
+  padding: 0.75rem;
+  border-radius: 0.375rem;
+  background-color: rgba(0, 0, 0, 0.1);
 }

@@ -13,7 +13,7 @@ from rest_framework.decorators import api_view, permission_classes
 
 @api_view(['GET'])
 @permission_classes([AllowAny])
-def default_view(request):
+def default_view():
     return Response({"message": "API is running"})
 
 

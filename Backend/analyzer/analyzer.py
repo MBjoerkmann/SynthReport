@@ -25,8 +25,7 @@ def analyze_content(content):
     Website Content:
     {content}
     """
-
-    model = 'gemini-pro-latest'
+    model = 'gemini-2.5-flash'
     response = client.models.generate_content(
         model=model, contents=prompt
     )
