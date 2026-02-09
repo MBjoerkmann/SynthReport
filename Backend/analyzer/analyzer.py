@@ -29,6 +29,9 @@ def analyze_content(content):
     response = client.models.generate_content(
         model=model, contents=prompt
     )
+    # need a backup in case gemini is down or unresponsive
+    
+
 
     # The response from Gemini might have ```json ... ``` around the JSON object.
     # This is a simple way to extract the JSON content.

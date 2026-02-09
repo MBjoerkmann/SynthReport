@@ -6,7 +6,21 @@ import { useState } from "react";
 type Analysis = {
   company_name: string;
   company_description: string;
-  recommendations: any[];
+  recommendations: Recommendation[];
+};
+
+type Step = {
+  name: string;
+  duration: string;
+};
+
+type Recommendation = {
+  name: string;
+  description: string;
+  feasibility: string;
+  action_plan: string[];
+  duration: string;
+  steps: Step[];
 };
 
 type ReportFormProps = {

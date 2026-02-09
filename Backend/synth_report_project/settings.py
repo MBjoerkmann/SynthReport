@@ -59,7 +59,7 @@ CORS_ALLOW_ALL_ORIGINS = config('CORS_ALLOW_ALL_ORIGINS', default=True, cast=boo
 
 CORS_ALLOWED_ORIGINS = [
     'http://localhost:3000',  # Your Next.js development server
-    'https://your-production-frontend.com',  # Your production frontend URL
+    'https://mathiasbjoerkmann.dk',  # Your production frontend URL
 ]
 
 ROOT_URLCONF = 'synth_report_project.urls'
