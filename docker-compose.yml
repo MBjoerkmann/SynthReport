@@ -23,7 +23,7 @@ services:
       - ./Backend/.env
     environment:
       - DEBUG=False
-      - ALLOWED_HOSTS=localhost,127.0.0.1,backend
+      - ALLOWED_HOSTS=mathiasbjoerkmann.dk,www.mathiasbjoerkmann.dk,localhost,127.0.0.1,backend
       - POSTGRES_HOST=db
       - POSTGRES_DB=${POSTGRES_DB:-synthreport}
       - POSTGRES_USER=${POSTGRES_USER:-synthreport}
