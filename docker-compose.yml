@@ -35,7 +35,7 @@ services:
       db:
         condition: service_healthy
     healthcheck:
-      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/api/')"]
+      test: ["CMD", "python", "-c", "import urllib.request; r=urllib.request.Request('http://localhost:8000/api/',headers={'X-Forwarded-Proto':'https'}); urllib.request.urlopen(r)"]
       interval: 30s
       timeout: 10s
       retries: 3
