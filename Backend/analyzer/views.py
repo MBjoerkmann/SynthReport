@@ -18,7 +18,7 @@ def default_view(request):
 
 
 class AnalyzeUrlView(APIView):
-    permission_classes = [IsAuthenticated]
+    permission_classes = [AllowAny]
     def post(self, request, *args, **kwargs):
         serializer = UrlSerializer(data=request.data)
         if serializer.is_valid():
@@ -34,7 +34,7 @@ class AnalyzeUrlView(APIView):
 from django.conf import settings
 
 class GenerateReportView(APIView):
-    permission_classes = [IsAuthenticated]
+    permission_classes = [AllowAny]
 
     def post(self, request, *args, **kwargs):
         serializer = ReportSerializer(data=request.data)
