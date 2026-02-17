@@ -35,6 +35,9 @@ COPY . .
 COPY entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
 
+# Create staticfiles dir so the volume mount inherits correct ownership
+RUN mkdir -p /app/staticfiles
+
 # Create a non-root user for security
 RUN useradd -m -u 1000 appuser && chown -R appuser:appuser /app
 USER appuser
