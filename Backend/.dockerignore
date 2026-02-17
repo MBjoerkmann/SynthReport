@@ -25,3 +25,4 @@ htmlcov/
 .gitattributes
 README.md
 .gcloudignore
+app.yaml

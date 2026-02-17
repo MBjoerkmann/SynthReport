@@ -7,18 +7,18 @@ from .analyzer import analyze_content
 from django.core.mail import EmailMessage
 from .report_generator import generate_report
 
-from rest_framework.permissions import AllowAny
+from rest_framework.permissions import AllowAny, IsAuthenticated
 
 from rest_framework.decorators import api_view, permission_classes
 
 @api_view(['GET'])
 @permission_classes([AllowAny])
-def default_view():
+def default_view(request):
     return Response({"message": "API is running"})
 
 
 class AnalyzeUrlView(APIView):
-    permission_classes = [AllowAny]
+    permission_classes = [IsAuthenticated]
     def post(self, request, *args, **kwargs):
         serializer = UrlSerializer(data=request.data)
         if serializer.is_valid():
@@ -34,7 +34,7 @@ class AnalyzeUrlView(APIView):
 from django.conf import settings
 
 class GenerateReportView(APIView):
-    permission_classes = [AllowAny]
+    permission_classes = [IsAuthenticated]
 
     def post(self, request, *args, **kwargs):
         serializer = ReportSerializer(data=request.data)
@@ -44,7 +44,7 @@ class GenerateReportView(APIView):
 
             try:
                 pdf_content = generate_report(analysis_data)
-                
+
                 email = EmailMessage(
                     'Your AI & Automation Report',
                     'Please find your report attached.',

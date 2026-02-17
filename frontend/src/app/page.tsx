@@ -2,6 +2,8 @@
 
 import { useState, useEffect } from "react";
 
+const API_BASE = process.env.NEXT_PUBLIC_API_URL || "";
+
 type Step = {
   name: string;
   duration: string;
@@ -57,7 +59,7 @@ export default function Home() {
     }
 
     try {
-      const response = await fetch("http://127.0.0.1:8000/analyzer/analyze-url/", {
+      const response = await fetch(`${API_BASE}/api/analyzer/analyze-url/`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

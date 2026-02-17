@@ -31,15 +31,15 @@ RUN pip install --no-cache-dir --no-build-isolation -r requirements.txt
 # Copy project
 COPY . .
 
+# Copy entrypoint script
+COPY entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+
 # Create a non-root user for security
 RUN useradd -m -u 1000 appuser && chown -R appuser:appuser /app
 USER appuser
 
-# Collect static files (if needed)
-RUN python manage.py collectstatic --noinput || true
-
 # Expose port
 EXPOSE 8000
 
-# Run gunicorn
-CMD ["gunicorn", "--bind", "0.0.0.0:8000", "--workers", "4", "synth_report_project.wsgi:application"]
+ENTRYPOINT ["/entrypoint.sh"]
