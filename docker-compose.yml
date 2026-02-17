@@ -3,21 +3,17 @@ services:
     build:
       context: ./Backend
       dockerfile: Dockerfile
-      args:
-        - BUILDKIT_INLINE_CACHE=1
     ports:
       - "8000:8000"
+    env_file:
+      - ./Backend/.env
     environment:
       - DEBUG=False
       - ALLOWED_HOSTS=localhost,127.0.0.1,backend
-      # Add other environment variables as needed from .env file
-    volumes:
-      - ./Backend:/app
-    command: gunicorn --bind 0.0.0.0:8000 --workers 4 synth_report_project.wsgi:application
     networks:
       - synthreport-network
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8000/admin/"]
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/admin/')"]
       interval: 30s
       timeout: 10s
       retries: 3
@@ -27,23 +23,14 @@ services:
     build:
       context: ./frontend
       dockerfile: Dockerfile
+      args:
+        NEXT_PUBLIC_API_URL: http://backend:8000
     ports:
       - "3000:3000"
-    environment:
-      - NODE_ENV=production
-      - NEXT_PUBLIC_API_URL=http://backend:8000
-    volumes:
-      - ./frontend:/app
     depends_on:
       - backend
     networks:
       - synthreport-network
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:3000"]
-      interval: 30s
-      timeout: 10s
-      retries: 3
-      start_period: 40s
 
 networks:
   synthreport-network:
