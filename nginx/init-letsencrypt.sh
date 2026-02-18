@@ -68,6 +68,7 @@ docker compose run --rm --entrypoint "\
     certbot certonly --webroot -w /var/www/certbot \
     --email $EMAIL \
     --domain $DOMAIN \
+    --domain www.$DOMAIN \
     --rsa-key-size $rsa_key_size \
     --agree-tos \
     --no-eff-email \
