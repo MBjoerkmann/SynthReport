@@ -1,4 +1,7 @@
+"use client";
+
 import Link from "next/link";
+import { useTranslation } from "@/lib/locale-context";
 
 const skills = [
   "Python", "Django", "TypeScript", "React", "Next.js",
@@ -6,33 +9,30 @@ const skills = [
 ];
 
 export default function HomePage() {
+  const { t } = useTranslation();
+
   return (
     <main className="page-container">
       <section className="hero">
-        <h1 className="hero-title">Mathias Høegh Bjørkmann</h1>
-        <p className="hero-tagline">Full-Stack Developer &amp; AI Enthusiast</p>
+        <h1 className="hero-title">Mathias H&oslash;egh Bj&oslash;rkmann</h1>
+        <p className="hero-tagline">{t("hero.tagline")}</p>
         <div className="hero-cta">
           <Link href="/ai-tool" className="btn-primary">
-            Try the AI Tool
+            {t("hero.tryAiTool")}
           </Link>
           <Link href="/contact" className="btn-secondary">
-            Get in Touch
+            {t("hero.getInTouch")}
           </Link>
         </div>
       </section>
 
       <section className="bio-section">
-        <h2>About Me</h2>
-        <p>
-          I&apos;m a developer passionate about building modern web applications
-          and leveraging AI to solve real-world problems. This portfolio
-          showcases my work and interests — including an AI-powered company
-          analysis tool you can try right now.
-        </p>
+        <h2>{t("about.heading")}</h2>
+        <p>{t("about.bio")}</p>
       </section>
 
       <section className="skills-section">
-        <h2>Tech Stack</h2>
+        <h2>{t("skills.heading")}</h2>
         <div className="skills-grid">
           {skills.map((skill) => (
             <span key={skill} className="skill-tag">
@@ -43,7 +43,7 @@ export default function HomePage() {
       </section>
 
       <section className="links-section">
-        <h2>Find Me Online</h2>
+        <h2>{t("links.heading")}</h2>
         <div className="links-grid">
           <a
             href="https://github.com/MBjoerkmann"
@@ -51,18 +51,18 @@ export default function HomePage() {
             rel="noopener noreferrer"
             className="link-card"
           >
-            GitHub
+            {t("links.github")}
           </a>
           <a
-            href="https://linkedin.com/in/mathias-bjørkmann"
+            href="https://linkedin.com/in/mathias-bj%C3%B8rkmann"
             target="_blank"
             rel="noopener noreferrer"
             className="link-card"
           >
-            LinkedIn
+            {t("links.linkedin")}
           </a>
           <a href="mailto:mbjoerkmann@proton.me" className="link-card">
-            Email
+            {t("links.email")}
           </a>
         </div>
       </section>

@@ -3,16 +3,23 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
-
-const navLinks = [
-  { href: "/", label: "About" },
-  { href: "/ai-tool", label: "AI Tool" },
-  { href: "/contact", label: "Contact" },
-];
+import { useLocale, useTranslation } from "@/lib/locale-context";
 
 export default function Navbar() {
   const pathname = usePathname();
   const [menuOpen, setMenuOpen] = useState(false);
+  const { locale, setLocale } = useLocale();
+  const { t } = useTranslation();
+
+  const navLinks = [
+    { href: "/", label: t("nav.about") },
+    { href: "/ai-tool", label: t("nav.aiTool") },
+    { href: "/contact", label: t("nav.contact") },
+  ];
+
+  const toggleLocale = () => {
+    setLocale(locale === "en" ? "da" : "en");
+  };
 
   return (
     <nav className="navbar">
@@ -24,7 +31,7 @@ export default function Navbar() {
         <button
           className="navbar-hamburger"
           onClick={() => setMenuOpen(!menuOpen)}
-          aria-label="Toggle menu"
+          aria-label={t("nav.toggleMenu")}
         >
           <span className={`hamburger-line ${menuOpen ? "open" : ""}`} />
           <span className={`hamburger-line ${menuOpen ? "open" : ""}`} />
@@ -42,6 +49,13 @@ export default function Navbar() {
               {link.label}
             </Link>
           ))}
+          <button
+            className="navbar-link locale-toggle"
+            onClick={toggleLocale}
+            aria-label={`Switch to ${locale === "en" ? "Danish" : "English"}`}
+          >
+            {locale === "en" ? "DA" : "EN"}
+          </button>
         </div>
       </div>
     </nav>

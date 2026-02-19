@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { useTranslation } from "@/lib/locale-context";
 
 const API_BASE = process.env.NEXT_PUBLIC_API_URL || "";
 
@@ -33,6 +34,7 @@ export default function AIToolPage() {
   const [analysis, setAnalysis] = useState<Analysis | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const { t } = useTranslation();
 
   useEffect(() => {
     const savedAnalysis = localStorage.getItem("analysis");
@@ -68,13 +70,13 @@ export default function AIToolPage() {
       });
 
       if (!response.ok) {
-        throw new Error("Failed to fetch analysis. Please check the URL and try again.");
+        throw new Error(t("aiTool.fetchError"));
       }
 
       const data = await response.json();
       setAnalysis(data);
     } catch (err) {
-      setError(err instanceof Error ? err.message : "An unknown error occurred.");
+      setError(err instanceof Error ? err.message : t("aiTool.unknownError"));
     } finally {
       setLoading(false);
     }
@@ -82,7 +84,7 @@ export default function AIToolPage() {
 
   return (
     <main className="main-container">
-      <h1 className="text-5xl font-bold mb-8">AI recommendation tool</h1>
+      <h1 className="text-5xl font-bold mb-8">{t("aiTool.heading")}</h1>
 
       <div className="url-form-container">
         <URLForm

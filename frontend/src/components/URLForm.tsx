@@ -1,5 +1,6 @@
-
 "use client";
+
+import { useTranslation } from "@/lib/locale-context";
 
 type URLFormProps = {
   setUrl: (url: string) => void;
@@ -10,18 +11,20 @@ type URLFormProps = {
 };
 
 export default function URLForm({ setUrl, handleSubmit, loading, error, url }: URLFormProps) {
+  const { t } = useTranslation();
+
   return (
     <form onSubmit={handleSubmit} className="flex-1 space-y-4">
       <div className="">
-        <h2 className="text-2xl font-bold mb-4">Analyze Company</h2>
-        <p> Simply put in the url of your website and get recommendations for AI implementation!</p>
+        <h2 className="text-2xl font-bold mb-4">{t("aiTool.analyzeCompany")}</h2>
+        <p>{t("aiTool.description")}</p>
         <div className="">
           <div className="inputContainer">
             <input
               className="input"
               type="text"
-              placeholder="Enter company website URL"
-              aria-label="Company URL"
+              placeholder={t("aiTool.placeholder")}
+              aria-label={t("aiTool.ariaLabel")}
               value={url}
               onChange={(e) => setUrl(e.target.value)}
             />
@@ -31,7 +34,7 @@ export default function URLForm({ setUrl, handleSubmit, loading, error, url }: U
             type="submit"
             disabled={loading}
           >
-            {loading ? "Analyzing..." : "Analyze"}
+            {loading ? t("aiTool.analyzing") : t("aiTool.analyze")}
           </button>
         </div>
         {error && <p className="text-red-500">{error}</p>}

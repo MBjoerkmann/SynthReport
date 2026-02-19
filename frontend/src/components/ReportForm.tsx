@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useTranslation } from "@/lib/locale-context";
 
 const API_BASE = process.env.NEXT_PUBLIC_API_URL || "";
 
@@ -32,6 +33,7 @@ export default function ReportForm({ analysis }: ReportFormProps) {
   const [reportEmail, setReportEmail] = useState("");
   const [sendingReport, setSendingReport] = useState(false);
   const [reportMessage, setReportMessage] = useState<string | null>(null);
+  const { t } = useTranslation();
 
   const handleGenerateReport = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -39,7 +41,7 @@ export default function ReportForm({ analysis }: ReportFormProps) {
     setReportMessage(null);
 
     if (!analysis) {
-      setReportMessage("Please analyze a company first to generate a report.");
+      setReportMessage(t("report.noAnalysis"));
       setSendingReport(false);
       return;
     }
@@ -54,13 +56,13 @@ export default function ReportForm({ analysis }: ReportFormProps) {
       });
 
       if (!response.ok) {
-        throw new Error("Failed to send report. Please try again.");
+        throw new Error(t("report.sendError"));
       }
 
-      setReportMessage("Report successfully sent to your email");
-      setReportEmail(""); // Clear email after sending
+      setReportMessage(t("report.success"));
+      setReportEmail("");
     } catch (err) {
-      setReportMessage(err instanceof Error ? err.message : "An unknown error occurred while sending the report.");
+      setReportMessage(err instanceof Error ? err.message : t("report.unknownError"));
     } finally {
       setSendingReport(false);
     }
@@ -70,13 +72,13 @@ export default function ReportForm({ analysis }: ReportFormProps) {
     <form onSubmit={handleGenerateReport} className="flex-1">
       <div className="report-form-container">
         <div>
-          <h1>Send report to my email</h1>
+          <h1>{t("report.heading")}</h1>
           <div>
             <input
               className="input"
               type="email"
-              placeholder="Enter your email"
-              aria-label="Report Email"
+              placeholder={t("report.placeholder")}
+              aria-label={t("report.ariaLabel")}
               value={reportEmail}
               onChange={(e) => setReportEmail(e.target.value)}
               required
@@ -86,11 +88,11 @@ export default function ReportForm({ analysis }: ReportFormProps) {
               type="submit"
               disabled={sendingReport || !analysis}
             >
-              {sendingReport ? "Sending..." : "Send Report"}
+              {sendingReport ? t("report.sending") : t("report.sendReport")}
             </button>
           </div>
           {reportMessage && (
-            <p className={reportMessage.includes("successfully") ? "text-white-600" : "text-red-500"}>
+            <p className={reportMessage === t("report.success") ? "text-white-600" : "text-red-500"}>
               {reportMessage}
             </p>
           )}

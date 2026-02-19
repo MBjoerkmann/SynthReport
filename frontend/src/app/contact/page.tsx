@@ -1,11 +1,15 @@
+"use client";
+
+import { useTranslation } from "@/lib/locale-context";
+
 export default function ContactPage() {
+  const { t } = useTranslation();
+
   return (
     <main className="page-container">
       <section className="contact-section">
-        <h1 className="text-4xl font-bold mb-2">Get in Touch</h1>
-        <p className="contact-subtitle">
-          Feel free to reach out for collaborations, questions, or just to say hello.
-        </p>
+        <h1 className="text-4xl font-bold mb-2">{t("contact.heading")}</h1>
+        <p className="contact-subtitle">{t("contact.subtitle")}</p>
 
         <div className="contact-cards">
           <a
@@ -13,7 +17,7 @@ export default function ContactPage() {
             className="contact-card"
           >
             <span className="contact-card-icon">&#9993;</span>
-            <h3>Email</h3>
+            <h3>{t("contact.email")}</h3>
             <p>mbjoerkmann@proton.me</p>
           </a>
 
@@ -24,7 +28,7 @@ export default function ContactPage() {
             className="contact-card"
           >
             <span className="contact-card-icon">&#128187;</span>
-            <h3>GitHub</h3>
+            <h3>{t("contact.github")}</h3>
             <p>github.com/MBjoerkmann</p>
           </a>
 
@@ -35,7 +39,7 @@ export default function ContactPage() {
             className="contact-card"
           >
             <span className="contact-card-icon">&#128101;</span>
-            <h3>LinkedIn</h3>
+            <h3>{t("contact.linkedin")}</h3>
             <p>linkedin.com/in/mathias-bj%C3%B8rkmann/</p>
           </a>
         </div>
