@@ -17,4 +17,4 @@ jobs:
           script: |
             cd ~/SynthReport
             git pull origin main
-            docker compose up -d
+            docker compose up -d --build
