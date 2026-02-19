@@ -14,31 +14,35 @@ export default function URLForm({ setUrl, handleSubmit, loading, error, url }: U
   const { t } = useTranslation();
 
   return (
-    <form onSubmit={handleSubmit} className="flex-1 space-y-4">
-      <div className="">
-        <h2 className="text-2xl font-bold mb-4">{t("aiTool.analyzeCompany")}</h2>
-        <p>{t("aiTool.description")}</p>
-        <div className="">
-          <div className="inputContainer">
-            <input
-              className="input"
-              type="text"
-              placeholder={t("aiTool.placeholder")}
-              aria-label={t("aiTool.ariaLabel")}
-              value={url}
-              onChange={(e) => setUrl(e.target.value)}
-            />
-          </div>
-          <button
-            className="analyze-button"
-            type="submit"
-            disabled={loading}
-          >
-            {loading ? t("aiTool.analyzing") : t("aiTool.analyze")}
-          </button>
-        </div>
-        {error && <p className="text-red-500">{error}</p>}
+    <form onSubmit={handleSubmit} className="aitool-form-card">
+      <label className="aitool-form-label" htmlFor="aitool-url-input">
+        {t("aiTool.analyzeCompany")}
+      </label>
+      <div className="aitool-input-row">
+        <input
+          id="aitool-url-input"
+          className="aitool-input"
+          type="text"
+          placeholder={t("aiTool.placeholder")}
+          aria-label={t("aiTool.ariaLabel")}
+          value={url}
+          onChange={(e) => setUrl(e.target.value)}
+          autoComplete="off"
+          spellCheck={false}
+        />
+        <button
+          className="aitool-submit-btn"
+          type="submit"
+          disabled={loading}
+        >
+          {loading ? t("aiTool.analyzing") : t("aiTool.analyze")}
+        </button>
       </div>
+      {error && (
+        <p className="aitool-error" role="alert">
+          {error}
+        </p>
+      )}
     </form>
   );
 }

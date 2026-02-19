@@ -1,5 +1,6 @@
 "use client";
 
+import { useState, useEffect, useCallback } from "react";
 import { useTranslation } from "@/lib/locale-context";
 
 type Step = {
@@ -26,51 +27,228 @@ type AnalysisDisplayProps = {
   analysis: Analysis | null;
 };
 
-export default function AnalysisDisplay({ analysis }: AnalysisDisplayProps) {
+type ModalProps = {
+  rec: Recommendation;
+  index: number;
+  onClose: () => void;
+};
+
+function RecommendationModal({ rec, index, onClose }: ModalProps) {
   const { t } = useTranslation();
 
-  if (!analysis) {
-    return null;
+  const hasDetails =
+    (rec.action_plan && rec.action_plan.length > 0) ||
+    (rec.steps && rec.steps.length > 0);
+
+  // Close on Escape key
+  useEffect(() => {
+    function handleKeyDown(e: KeyboardEvent) {
+      if (e.key === "Escape") onClose();
+    }
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
+  }, [onClose]);
+
+  // Lock body scroll while modal is open
+  useEffect(() => {
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = prev;
+    };
+  }, []);
+
+  function handleBackdropClick(e: React.MouseEvent<HTMLDivElement>) {
+    if (e.target === e.currentTarget) onClose();
   }
 
   return (
-    <div className="analysis-display">
-      <h2>{t("analysis.resultsFor")} {analysis.company_name}</h2>
-      <div className="pb-6 mb-6 border-b">
-        <h3 className="text-xl font-semibold">{t("analysis.companyDescription")}</h3>
-        <p className="text-white">{analysis.company_description}</p>
-      </div>
-      <div>
-        <h3>{t("analysis.recommendations")}</h3>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8 p-4">
-          {analysis.recommendations.map((rec, index) => (
-            <div key={index} className={`recommendation-card recommendation-${index}`}>
-              <h4>{rec.name}</h4>
-              <p>{rec.description}</p>
-              <p><strong className="feasibility">{t("analysis.feasibility")}</strong> {rec.feasibility}</p>
-              <p><strong className="duration">{t("analysis.duration")}</strong> {rec.duration}</p>
-              <div className="action-plan">
-                <h5 className="font-semibold mb-2">{t("analysis.actionPlan")}</h5>
-                <ol>
-                  {rec.action_plan.map((step, i) => (
-                    <li key={i}>{step}</li>
-                  ))}
-                </ol>
-              </div>
+    <div
+      className="aitool-modal-backdrop"
+      onClick={handleBackdropClick}
+      role="dialog"
+      aria-modal="true"
+      aria-label={rec.name}
+    >
+      <div className="aitool-modal-panel">
+        {/* Header */}
+        <div className="aitool-modal-header">
+          <div className="aitool-modal-header-text">
+            <p className="aitool-rec-number">
+              #{String(index + 1).padStart(2, "0")}
+            </p>
+            <h2 className="aitool-modal-title">{rec.name}</h2>
+          </div>
+          <button
+            className="aitool-modal-close"
+            onClick={onClose}
+            aria-label={t("analysis.close")}
+          >
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
+              <path
+                d="M2 2L16 16M16 2L2 16"
+                stroke="currentColor"
+                strokeWidth="1.75"
+                strokeLinecap="round"
+              />
+            </svg>
+          </button>
+        </div>
+
+        {/* Scrollable body */}
+        <div className="aitool-modal-body">
+          {/* Badges */}
+          <div className="aitool-modal-badges">
+            <span className="aitool-badge aitool-badge-feasibility">
+              {t("analysis.feasibility")} {rec.feasibility}
+            </span>
+            <span className="aitool-badge aitool-badge-duration">
+              {t("analysis.duration")} {rec.duration}
+            </span>
+          </div>
+
+          {/* Full description */}
+          <p className="aitool-modal-desc">{rec.description}</p>
+
+          {hasDetails && (
+            <div className="aitool-modal-details">
+              {rec.action_plan && rec.action_plan.length > 0 && (
+                <div className="aitool-modal-section">
+                  <p className="aitool-rec-section-title">
+                    {t("analysis.actionPlan")}
+                  </p>
+                  <ol className="aitool-rec-list">
+                    {rec.action_plan.map((step, i) => (
+                      <li key={i}>{step}</li>
+                    ))}
+                  </ol>
+                </div>
+              )}
+
               {rec.steps && rec.steps.length > 0 && (
-                <div className="steps">
-                  <h5>{t("analysis.steps")}</h5>
-                  <ol>
+                <div className="aitool-modal-section">
+                  <div className="aitool-rec-divider" />
+                  <p className="aitool-rec-section-title">
+                    {t("analysis.steps")}
+                  </p>
+                  <ol className="aitool-rec-steps-list">
                     {rec.steps.map((step, i) => (
-                      <li key={i}>{step.name} ({step.duration})</li>
+                      <li key={i} className="aitool-rec-step-item">
+                        <span className="aitool-rec-step-num">{i + 1}.</span>
+                        <span>{step.name}</span>
+                        <span className="aitool-rec-step-duration">
+                          {step.duration}
+                        </span>
+                      </li>
                     ))}
                   </ol>
                 </div>
               )}
             </div>
-          ))}
+          )}
         </div>
       </div>
     </div>
+  );
+}
+
+export default function AnalysisDisplay({ analysis }: AnalysisDisplayProps) {
+  const { t } = useTranslation();
+  const [activeIndex, setActiveIndex] = useState<number | null>(null);
+
+  const openModal = useCallback((index: number) => {
+    setActiveIndex(index);
+  }, []);
+
+  const closeModal = useCallback(() => {
+    setActiveIndex(null);
+  }, []);
+
+  if (!analysis) {
+    return null;
+  }
+
+  const activeRec =
+    activeIndex !== null ? analysis.recommendations[activeIndex] : null;
+
+  return (
+    <>
+      <div className="aitool-results">
+        <div className="aitool-results-header">
+          <p className="aitool-results-eyebrow">{t("analysis.resultsFor")}</p>
+          <h2 className="aitool-results-company">{analysis.company_name}</h2>
+          <p className="aitool-results-desc">{analysis.company_description}</p>
+        </div>
+
+        <p className="aitool-rec-heading">{t("analysis.recommendations")}</p>
+        <div className="aitool-rec-grid">
+          {analysis.recommendations.map((rec, index) => (
+            <button
+              key={index}
+              className="aitool-rec-card aitool-rec-card--clickable"
+              onClick={() => openModal(index)}
+              aria-label={`${rec.name} — ${t("analysis.showMore")}`}
+            >
+              {/* Section 1: identity */}
+              <div className="aitool-rec-identity">
+                <p className="aitool-rec-number">
+                  #{String(index + 1).padStart(2, "0")}
+                </p>
+                <h3 className="aitool-rec-name">{rec.name}</h3>
+              </div>
+
+              {/* Section 2: description (always clamped on card) */}
+              <div className="aitool-rec-desc-block">
+                <p className="aitool-rec-desc aitool-rec-desc--clamped">
+                  {rec.description}
+                </p>
+              </div>
+
+              {/* Section 3: badges */}
+              <div className="aitool-rec-badges-block">
+                <div className="aitool-rec-badges">
+                  <span className="aitool-badge aitool-badge-feasibility">
+                    {t("analysis.feasibility")} {rec.feasibility}
+                  </span>
+                  <span className="aitool-badge aitool-badge-duration">
+                    {t("analysis.duration")} {rec.duration}
+                  </span>
+                </div>
+              </div>
+
+              {/* Clickable hint */}
+              <div className="aitool-rec-card-hint">
+                <span className="aitool-rec-hint-label">
+                  {t("analysis.showMore")}
+                </span>
+                <svg
+                  width="12"
+                  height="12"
+                  viewBox="0 0 12 12"
+                  fill="none"
+                  aria-hidden="true"
+                >
+                  <path
+                    d="M2 6h8M6 2l4 4-4 4"
+                    stroke="currentColor"
+                    strokeWidth="1.5"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              </div>
+            </button>
+          ))}
+        </div>
+      </div>
+
+      {activeRec !== null && activeIndex !== null && (
+        <RecommendationModal
+          rec={activeRec}
+          index={activeIndex}
+          onClose={closeModal}
+        />
+      )}
+    </>
   );
 }

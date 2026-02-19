@@ -68,36 +68,37 @@ export default function ReportForm({ analysis }: ReportFormProps) {
     }
   };
 
+  const isSuccess = reportMessage === t("report.success");
+
   return (
-    <form onSubmit={handleGenerateReport} className="flex-1">
-      <div className="report-form-container">
-        <div>
-          <h1>{t("report.heading")}</h1>
-          <div>
-            <input
-              className="input"
-              type="email"
-              placeholder={t("report.placeholder")}
-              aria-label={t("report.ariaLabel")}
-              value={reportEmail}
-              onChange={(e) => setReportEmail(e.target.value)}
-              required
-            />
-            <button
-              className="send-report-button"
-              type="submit"
-              disabled={sendingReport || !analysis}
-            >
-              {sendingReport ? t("report.sending") : t("report.sendReport")}
-            </button>
-          </div>
-          {reportMessage && (
-            <p className={reportMessage === t("report.success") ? "text-white-600" : "text-red-500"}>
-              {reportMessage}
-            </p>
-          )}
-        </div>
+    <form onSubmit={handleGenerateReport} className="aitool-report-section">
+      <h3 className="aitool-report-title">{t("report.heading")}</h3>
+      <div className="aitool-report-row">
+        <input
+          className="aitool-report-input"
+          type="email"
+          placeholder={t("report.placeholder")}
+          aria-label={t("report.ariaLabel")}
+          value={reportEmail}
+          onChange={(e) => setReportEmail(e.target.value)}
+          required
+        />
+        <button
+          className="aitool-report-btn"
+          type="submit"
+          disabled={sendingReport || !analysis}
+        >
+          {sendingReport ? t("report.sending") : t("report.sendReport")}
+        </button>
       </div>
+      {reportMessage && (
+        <p
+          className={`aitool-report-msg ${isSuccess ? "aitool-report-msg-success" : "aitool-report-msg-error"}`}
+          role="status"
+        >
+          {reportMessage}
+        </p>
+      )}
     </form>
   );
 }

@@ -83,28 +83,50 @@ export default function AIToolPage() {
   };
 
   return (
-    <main className="main-container">
-      <h1 className="text-5xl font-bold mb-8">{t("aiTool.heading")}</h1>
+    <main className="aitool-page">
+      {/* Hero */}
+      <section className="aitool-hero">
+        <p className="aitool-hero-eyebrow">AI-powered</p>
+        <h1 className="aitool-hero-title">{t("aiTool.heading")}</h1>
+        <p className="aitool-hero-desc">{t("aiTool.description")}</p>
+      </section>
 
-      <div className="url-form-container">
-        <URLForm
-          url={url}
-          setUrl={setUrl}
-          handleSubmit={handleSubmit}
-          loading={loading}
-          error={error}
-        />
+      {/* URL input */}
+      <URLForm
+        url={url}
+        setUrl={setUrl}
+        handleSubmit={handleSubmit}
+        loading={loading}
+        error={error}
+      />
 
-        {analysis && <ReportForm analysis={analysis} />}
-      </div>
-
+      {/* Cinematic loading state */}
       {loading && (
-        <div className="loading-spinner">
-          <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-blue-500"></div>
+        <div className="aitool-loading" aria-label={t("aiTool.analyzing")} role="status">
+          <div className="aitool-scan-wrap" aria-hidden="true">
+            <div className="aitool-scan-grid" />
+            <div className="aitool-scan-line" />
+            <div className="aitool-scan-corner aitool-scan-corner-tl" />
+            <div className="aitool-scan-corner aitool-scan-corner-tr" />
+            <div className="aitool-scan-corner aitool-scan-corner-bl" />
+            <div className="aitool-scan-corner aitool-scan-corner-br" />
+          </div>
+          <p className="aitool-loading-label">{t("aiTool.analyzing")}</p>
+          <div className="aitool-loading-dots" aria-hidden="true">
+            <span className="aitool-loading-dot" />
+            <span className="aitool-loading-dot" />
+            <span className="aitool-loading-dot" />
+          </div>
         </div>
       )}
 
-      {analysis && <AnalysisDisplay analysis={analysis} />}
+      {/* Results + report form */}
+      {analysis && (
+        <>
+          <AnalysisDisplay analysis={analysis} />
+          <ReportForm analysis={analysis} />
+        </>
+      )}
     </main>
   );
 }
