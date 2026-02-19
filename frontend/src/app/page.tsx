@@ -4,8 +4,13 @@ import Link from "next/link";
 import { useTranslation } from "@/lib/locale-context";
 
 const skills = [
-  "Python", "Django", "TypeScript", "React", "Next.js",
-  "PostgreSQL", "Docker", "GCP", "REST APIs", "AI/ML",
+  "C#", "JavaScript", "Python", "TypeScript",
+  "React", "Next.js", "Electron",
+  "SQL", "PostgreSQL", "MSSQL",
+  "Django", "REST APIs",
+  "Docker", "CI/CD", "GitHub Actions",
+  "Clean Architecture", "Agile / Scrum",
+  "GCP", "AI/ML",
 ];
 
 export default function HomePage() {
@@ -29,6 +34,62 @@ export default function HomePage() {
       <section className="bio-section">
         <h2>{t("about.heading")}</h2>
         <p>{t("about.bio")}</p>
+      </section>
+
+      <section className="experience-section">
+        <h2>{t("experience.heading")}</h2>
+        <div className="experience-card">
+          <div className="experience-header">
+            <h3>{t("experience.turnpikes.title")}</h3>
+            <span className="experience-date">2024 – 2025</span>
+          </div>
+          <ul className="experience-list">
+            <li>{t("experience.turnpikes.bullet1")}</li>
+            <li>{t("experience.turnpikes.bullet2")}</li>
+            <li>{t("experience.turnpikes.bullet3")}</li>
+            <li>{t("experience.turnpikes.bullet4")}</li>
+          </ul>
+        </div>
+      </section>
+
+      <section className="education-section">
+        <h2>{t("education.heading")}</h2>
+        <div className="education-grid">
+          <div className="education-card">
+            <h3>{t("education.pb.title")}</h3>
+            <p className="education-institution">UCN – Aalborg</p>
+            <span className="education-date">2025</span>
+          </div>
+          <div className="education-card">
+            <h3>{t("education.ap.title")}</h3>
+            <p className="education-institution">UCN – Aalborg</p>
+            <span className="education-date">2024</span>
+          </div>
+        </div>
+      </section>
+
+      <section className="projects-section">
+        <h2>{t("projects.heading")}</h2>
+        <div className="projects-grid">
+          <div className="project-card">
+            <div className="project-card-label">{t("projects.sideProject")}</div>
+            <h3>{t("projects.ai.title")}</h3>
+            <ul className="project-list">
+              <li>{t("projects.ai.bullet1")}</li>
+              <li>{t("projects.ai.bullet2")}</li>
+              <li>{t("projects.ai.bullet3")}</li>
+            </ul>
+          </div>
+          <div className="project-card">
+            <div className="project-card-label">{t("projects.bachelorProject")}</div>
+            <h3>{t("projects.migration.title")}</h3>
+            <ul className="project-list">
+              <li>{t("projects.migration.bullet1")}</li>
+              <li>{t("projects.migration.bullet2")}</li>
+              <li>{t("projects.migration.bullet3")}</li>
+            </ul>
+          </div>
+        </div>
       </section>
 
       <section className="skills-section">
