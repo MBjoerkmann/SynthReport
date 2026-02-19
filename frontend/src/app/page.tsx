@@ -1,108 +1,71 @@
-"use client";
+import Link from "next/link";
 
-import { useState, useEffect } from "react";
+const skills = [
+  "Python", "Django", "TypeScript", "React", "Next.js",
+  "PostgreSQL", "Docker", "GCP", "REST APIs", "AI/ML",
+];
 
-const API_BASE = process.env.NEXT_PUBLIC_API_URL || "";
-
-type Step = {
-  name: string;
-  duration: string;
-};
-
-type Recommendation = {
-  name: string;
-  description: string;
-  feasibility: string;
-  action_plan: string[];
-  duration: string;
-  steps: Step[];
-};
-
-type Analysis = {
-  company_name: string;
-  company_description: string;
-  recommendations: Recommendation[];
-};
-
-import URLForm from "@/components/URLForm";
-import AnalysisDisplay from "@/components/AnalysisDisplay";
-import ReportForm from "@/components/ReportForm";
-
-export default function Home() {
-  const [url, setUrl] = useState("");
-  const [analysis, setAnalysis] = useState<Analysis | null>(null);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-
-  useEffect(() => {
-    const savedAnalysis = localStorage.getItem("analysis");
-    if (savedAnalysis) {
-      setAnalysis(JSON.parse(savedAnalysis));
-    }
-  }, []);
-
-  useEffect(() => {
-    if (analysis) {
-      localStorage.setItem("analysis", JSON.stringify(analysis));
-    }
-  }, [analysis]);
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setLoading(true);
-    setError(null);
-    setAnalysis(null);
-
-    let formattedUrl = url;
-    if (!formattedUrl.startsWith("http://") && !formattedUrl.startsWith("https://")) {
-      formattedUrl = "https://www." + formattedUrl;
-    }
-
-    try {
-      const response = await fetch(`${API_BASE}/api/analyzer/analyze-url/`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ url: formattedUrl }),
-      });
-
-      if (!response.ok) {
-        throw new Error("Failed to fetch analysis. Please check the URL and try again.");
-      }
-
-      const data = await response.json();
-      setAnalysis(data);
-    } catch (err) {
-      setError(err instanceof Error ? err.message : "An unknown error occurred.");
-    } finally {
-      setLoading(false);
-    }
-  };
-
+export default function HomePage() {
   return (
-    <main className="main-container">
-      <h1 className="text-5xl font-bold mb-8">AI recommendation tool</h1>
-
-      <div className="url-form-container">
-        <URLForm
-          url={url}
-          setUrl={setUrl}
-          handleSubmit={handleSubmit}
-          loading={loading}
-          error={error}
-        />
-
-        {analysis && <ReportForm analysis={analysis} />}
-      </div>
-
-      {loading && (
-        <div className="loading-spinner">
-          <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-blue-500"></div>
+    <main className="page-container">
+      <section className="hero">
+        <h1 className="hero-title">Mathias Høegh Bjørkmann</h1>
+        <p className="hero-tagline">Full-Stack Developer &amp; AI Enthusiast</p>
+        <div className="hero-cta">
+          <Link href="/ai-tool" className="btn-primary">
+            Try the AI Tool
+          </Link>
+          <Link href="/contact" className="btn-secondary">
+            Get in Touch
+          </Link>
         </div>
-      )}
+      </section>
 
-      {analysis && <AnalysisDisplay analysis={analysis} />}
+      <section className="bio-section">
+        <h2>About Me</h2>
+        <p>
+          I&apos;m a developer passionate about building modern web applications
+          and leveraging AI to solve real-world problems. This portfolio
+          showcases my work and interests — including an AI-powered company
+          analysis tool you can try right now.
+        </p>
+      </section>
+
+      <section className="skills-section">
+        <h2>Tech Stack</h2>
+        <div className="skills-grid">
+          {skills.map((skill) => (
+            <span key={skill} className="skill-tag">
+              {skill}
+            </span>
+          ))}
+        </div>
+      </section>
+
+      <section className="links-section">
+        <h2>Find Me Online</h2>
+        <div className="links-grid">
+          <a
+            href="https://github.com/MBjoerkmann"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="link-card"
+          >
+            GitHub
+          </a>
+          <a
+            href="https://linkedin.com/in/mathias-bjørkmann"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="link-card"
+          >
+            LinkedIn
+          </a>
+          <a href="mailto:mbjoerkmann@proton.me" className="link-card">
+            Email
+          </a>
+        </div>
+      </section>
     </main>
   );
 }
