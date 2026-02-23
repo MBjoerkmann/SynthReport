@@ -16,7 +16,37 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
             cd ~/SynthReport
+                        BEFORE=$(git rev-parse HEAD)
             git pull origin main
-            docker compose up -d --build
+            AFTER=$(git rev-parse HEAD)
+            CHANGED=$(git diff --name-only "$BEFORE" "$AFTER")
+
+            SERVICES=""
+
+            if echo "$CHANGED" | grep -q "^frontend/"; then
+              SERVICES="$SERVICES frontend"
+            fi
+
+            if echo "$CHANGED" | grep -q "^Backend/"; then
+              SERVICES="$SERVICES backend"
+            fi
+
+            if echo "$CHANGED" | grep -q "^nginx/"; then
+              SERVICES="$SERVICES nginx"
+            fi
+
+            if echo "$CHANGED" | grep -q "^docker-compose.yml"; then
+              SERVICES="frontend backend nginx"
+            fi
+
+            if [ -z "$SERVICES" ]; then
+              echo "No service changes detected, skipping deploy."
+              exit 0
+            fi
+
+            echo "Rebuilding:$SERVICES"
+            docker compose up -d --build --no-deps $SERVICES
             docker image prune -f
+
+            
 
