@@ -117,7 +117,7 @@ const translations: Record<Locale, Record<string, string>> = {
     // About
     "about.heading": "Om mig",
     "about.bio":
-      "Jeg er en l\u00f8sningsorienteret udvikler med s\u00e6rlig interesse for systemdesign, automatisering og arkitektur. Min faglige baggrund omfatter arbejde med b\u00e5de klientapplikationer og systemintegration, med fokus p\u00e5 at designe skalerbare og vedligeholdelsesvenlige l\u00f8sninger. Uddannelsen har givet mig et fundament for udvikling af st\u00f8rre systemer, databaser, sikkerhed, og dataanalyse, suppleret med viden om machine learning og kryptografi. Ved siden af software interesserer jeg mig for byarkitektur, politik og fitness.",
+      "Jeg er en l\u00f8sningsorienteret udvikler med s\u00e6rlig interesse for systemdesign, automatisering og arkitektur. Min faglige baggrund omfatter arbejde med b\u00e5de klientapplikationer og systemintegration, med fokus p\u00e5 at designe skalerbare og vedligeholdelsesvenlige l\u00f8sninger. Min uddannelsen har givet mig et fundament for udvikling af st\u00f8rre systemer, databaser, sikkerhed, og dataanalyse, suppleret med viden om machine learning og kryptografi. Ved siden af software interesserer jeg mig for byarkitektur, politik og fitness.",
 
     // Gallery
     "gallery.heading": "Galleri",
