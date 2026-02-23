@@ -1628,9 +1628,20 @@ body {
     padding: 1.5rem 0 2rem;
   }
 
+  .aitool-form-card {
+    padding: 1.25rem 1rem;
+  }
+
   .aitool-input-row,
   .aitool-report-row {
     flex-direction: column;
+  }
+
+  .aitool-input,
+  .aitool-report-input {
+    height: auto;
+    min-height: 44px;
+    padding: 0.75rem 1rem;
   }
 
   .aitool-submit-btn,
