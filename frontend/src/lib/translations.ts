@@ -18,6 +18,9 @@ const translations: Record<Locale, Record<string, string>> = {
     "about.bio":
       "I'm a solution-oriented developer with a strong interest in system design, automation, and architecture. My professional background spans client applications and system integration, with a focus on designing scalable and maintainable solutions. My education has given me a foundation in large-scale systems, databases, security, and data analysis, supplemented with knowledge of machine learning and cryptography. Outside of software, I'm interested in urban architecture, politics, and fitness.",
 
+    // Gallery
+    "gallery.heading": "Gallery",
+
     // Experience
     "experience.heading": "Experience",
     "experience.turnpikes.title": "Internship, Turnpikes \u2013 Aalborg",
@@ -115,6 +118,9 @@ const translations: Record<Locale, Record<string, string>> = {
     "about.heading": "Om mig",
     "about.bio":
       "Jeg er en l\u00f8sningsorienteret udvikler med s\u00e6rlig interesse for systemdesign, automatisering og arkitektur. Min faglige baggrund omfatter arbejde med b\u00e5de klientapplikationer og systemintegration, med fokus p\u00e5 at designe skalerbare og vedligeholdelsesvenlige l\u00f8sninger. Uddannelsen har givet mig et fundament for udvikling af st\u00f8rre systemer, databaser, sikkerhed, og dataanalyse, suppleret med viden om machine learning og kryptografi. Ved siden af software interesserer jeg mig for byarkitektur, politik og fitness.",
+
+    // Gallery
+    "gallery.heading": "Galleri",
 
     // Experience
     "experience.heading": "Erfaring",

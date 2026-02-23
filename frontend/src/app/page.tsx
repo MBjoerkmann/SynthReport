@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useTranslation } from "@/lib/locale-context";
 
 const skills = [
@@ -34,6 +35,69 @@ export default function HomePage() {
       <section className="bio-section">
         <h2>{t("about.heading")}</h2>
         <p>{t("about.bio")}</p>
+      </section>
+
+      <section className="gallery-section">
+        <h2>{t("gallery.heading")}</h2>
+        <div className="gallery-layout">
+          <div className="gallery-featured">
+            <Image
+              src="/Mathias/mathias_faceapp.jpg"
+              alt="Mathias Høegh Bjørkmann"
+              width={600}
+              height={800}
+              className="gallery-featured-img"
+              priority
+            />
+          </div>
+          <div className="gallery-grid">
+            <div className="gallery-item">
+              <Image
+                src="/Mathias/IMG_20250722_210528_173.jpg"
+                alt="Hiking in the wheat fields"
+                width={400}
+                height={400}
+                className="gallery-img"
+              />
+            </div>
+            <div className="gallery-item">
+              <Image
+                src="/Mathias/IMG_3094.jpg"
+                alt="Casual portrait in modern space"
+                width={400}
+                height={400}
+                className="gallery-img"
+              />
+            </div>
+            <div className="gallery-item">
+              <Image
+                src="/Mathias/IMG_2904.jpg"
+                alt="Overlooking snowy city"
+                width={400}
+                height={400}
+                className="gallery-img"
+              />
+            </div>
+            <div className="gallery-item">
+              <Image
+                src="/Mathias/received_1832509100786188.jpeg"
+                alt="Winter outdoors portrait"
+                width={400}
+                height={400}
+                className="gallery-img"
+              />
+            </div>
+            <div className="gallery-item">
+              <Image
+                src="/Mathias/Messenger_creation_6AB2BCB1-ADB9-4BBC-82C3-57491131AAEF.jpeg"
+                alt="Fun snow photo with friends"
+                width={400}
+                height={400}
+                className="gallery-img"
+              />
+            </div>
+          </div>
+        </div>
       </section>
 
       <section className="experience-section">
