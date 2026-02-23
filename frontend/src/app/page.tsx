@@ -87,15 +87,6 @@ export default function HomePage() {
                 className="gallery-img"
               />
             </div>
-            <div className="gallery-item">
-              <Image
-                src="/Mathias/Messenger_creation_6AB2BCB1-ADB9-4BBC-82C3-57491131AAEF.jpeg"
-                alt="Fun snow photo with friends"
-                width={400}
-                height={400}
-                className="gallery-img"
-              />
-            </div>
           </div>
         </div>
       </section>
