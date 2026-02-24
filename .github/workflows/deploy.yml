@@ -16,7 +16,7 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
             cd ~/SynthReport
-                        BEFORE=$(git rev-parse HEAD)
+            BEFORE=$(git rev-parse HEAD)
             git pull origin main
             AFTER=$(git rev-parse HEAD)
             CHANGED=$(git diff --name-only "$BEFORE" "$AFTER")
